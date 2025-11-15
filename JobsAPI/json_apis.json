@@ -1,0 +1,138 @@
+{
+  "users": [
+    {
+      "Id": 1,
+      "UserName": "Mohamed Kosper",
+      "Email": "mohamedkosper2003@gmail.com",
+      "Password": null,
+      "Role": "Company",
+      "Phone": "01111208421"
+    },
+    {
+      "Id": 2,
+      "UserName": "ahmed hassan",
+      "Email": "ahmedkosper1@gmail.com",
+      "Password": null,
+      "Role": "jobSeeker",
+      "Phone": "01111208421"
+    },
+    {
+      "Id": 3,
+      "UserName": "Bassant kosper",
+      "Email": "bassantkosper1@gmail.com",
+      "Password": null,
+      "Role": "jobSeeker",
+      "Phone": "01111208421"
+    },
+    {
+      "Id": 4,
+      "UserName": "Dahan97",
+      "Email": "Dahan@Dahan.com",
+      "Password": null,
+      "Role": "Company",
+      "Phone": "0123456"
+    },
+    {
+      "Id": 5,
+      "UserName": "IDahan97",
+      "Email": "IDahan@Dahan.com",
+      "Password": "$2a$11$RMmEfl77yiGoFrCH1ZbDT.sbL3iEJ.zbql9OWG2H9QJntBrQmC94a",
+      "Role": "Company",
+      "Phone": "012345556"
+    }
+  ],
+  "companies": [
+    {
+      "name": "Next ",
+      "logo": "data:image/png;base64,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",
+      "location": "21 street Egypt",
+      "industry": "Software Devolpment",
+      "description": "Next Academy evelops scalable software solutions for modern businesses. Our marketing-driven approach ensures digital growth. We empower organizations to innovate faster through technology.",
+      "category": "Education",
+      "jobs": 0,
+      "website": "https://next-academy.com",
+      "tags": [
+        "kosper",
+        "mohamed"
+      ],
+      "stats": [
+        {
+          "label": "Founded",
+          "value": "1 july 2003"
+        },
+        {
+          "label": "Employees",
+          "value": "+500"
+        },
+        {
+          "label": "Location",
+          "value": "cairo"
+        },
+        {
+          "label": "Industry",
+          "value": "Education"
+        }
+      ],
+      "id": 1
+    }
+  ],
+  "jobs": [
+    {
+      "companyId": 1,
+      "title": "Front end developer",
+      "company": "Next Academy",
+      "location": "Cairo",
+      "employmentType": "Full-Time",
+      "workLocation": "Remote",
+      "category": "Software Development",
+      "level": "Junior",
+      "salary": "8000",
+      "description": "Front end developer with 5 years experience",
+      "applied": 2,
+      "capacity": 0,
+      "tags": [
+        "React.js",
+        "Next.js",
+        "Tailwind Css"
+      ],
+      "logo": "",
+      "id": 1
+    }
+  ],
+  "applications": [
+    {
+      "userId": 2,
+      "jobId": 1,
+      "companyId": 1,
+      "status": "accepted",
+      "fullName": "mohamed hassan ",
+      "email": "mohamedkosper20@gmail.com",
+      "phone": "01111208422",
+      "currentJob": "Front-end developer",
+      "linkedinUrl": "https://www.linkedin.com/in/mohamed-hassan-kosper-22b617319",
+      "portfolioUrl": "https://www.linkedin.com/in/mohamed-hassan-kosper-22b617319",
+      "additionalInfo": "Front-end developer with 5years experience",
+      "logo": "",
+      "cv": "",
+      "appliedAt": "2025-11-12T14:08:46.450Z",
+      "id": 1
+    },
+    {
+      "userId": 3,
+      "jobId": 1,
+      "companyId": 1,
+      "status": "interview",
+      "fullName": "Bassant kosper",
+      "email": "bassantkosper1@gmail.com",
+      "phone": "01004667765",
+      "currentJob": "Frontend Developer",
+      "linkedinUrl": "https://www.linkedin.com/in/mohamed-hassan-kosper-22b617319",
+      "portfolioUrl": "https://www.linkedin.com/in/mohamed-hassan-kosper-22b617319",
+      "additionalInfo": "Frontend Developer with 2 years experience",
+      "logo": "",
+      "cv": "",
+      "appliedAt": "2025-11-12T14:11:19.561Z",
+      "id": 2
+    }
+  ]
+}
