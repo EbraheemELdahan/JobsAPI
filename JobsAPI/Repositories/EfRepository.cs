@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using JobsAPI.Data;
 
@@ -32,14 +33,46 @@ public class EfRepository<T> : IRepository<T> where T : class
         return true;
     }
 
+    private IQueryable<T> BuildQueryWithIncludes()
+    {
+        IQueryable<T> query = _set.AsQueryable();
+
+        // If this entity has a "Company" navigation, include it so returned Users carry Company data
+        var entityType = _db.Model.FindEntityType(typeof(T));
+        if (entityType != null && entityType.FindNavigation("Company") != null)
+        {
+            query = query.Include("Company");
+        }
+
+        return query;
+    }
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _set.ToListAsync();
+        var query = BuildQueryWithIncludes();
+        return await query.ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(int id)
     {
-        return await _set.FindAsync(id);
+        // Prefer query approach to allow Includes to work
+        var keyProperty = typeof(T).GetProperty("Id");
+        if (keyProperty == null)
+        {
+            // fallback to FindAsync if no Id property
+            return await _set.FindAsync(id);
+        }
+
+        var query = BuildQueryWithIncludes();
+
+        // Build lambda: e => e.Id == id
+        var param = Expression.Parameter(typeof(T), "e");
+        var left = Expression.Property(param, keyProperty);
+        var right = Expression.Constant(Convert.ChangeType(id, keyProperty.PropertyType));
+        var body = Expression.Equal(left, right);
+        var lambda = Expression.Lambda<Func<T, bool>>(body, param);
+
+        return await query.FirstOrDefaultAsync(lambda);
     }
 
     public async Task<T?> UpdateAsync(T entity)

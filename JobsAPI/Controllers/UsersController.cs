@@ -12,7 +12,7 @@ public class UsersController : ControllerBase
     public UsersController(IUserService svc) => _svc = svc;
 
     [HttpGet]
-    public Task<IEnumerable<User>> Get() => _svc.GetAllAsync();
+    public Task<IEnumerable<UserDto>> Get() => _svc.GetAllAsync();
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Get(int id)
@@ -21,11 +21,23 @@ public class UsersController : ControllerBase
         return u == null ? NotFound() : Ok(u);
     }
 
+    // Keep create/update returning the created/updated entity (not DTO) to avoid broader changes.
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] User u)
     {
         var created = await _svc.CreateAsync(u);
-        return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
+        // Map created to DTO for response
+        var dto = new UserDto
+        {
+            Id = created.Id,
+            UserName = created.UserName,
+            Email = created.Email,
+            Role = created.Role,
+            Phone = created.Phone,
+            CompanyId = created.CompanyId,
+            Company = created.Company == null ? null : new CompanyLiteDto { Id = created.Company.Id, Name = created.Company.Name, Logo = created.Company.Logo }
+        };
+        return CreatedAtAction(nameof(Get), new { id = created.Id }, dto);
     }
 
     [HttpPut("{id:int}")]
