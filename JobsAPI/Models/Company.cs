@@ -15,6 +15,8 @@ public class Company
     public string? Website { get; set; }
     public List<string>? Tags { get; set; }
     public List<CompanyStat>? Stats { get; set; }
+    public List<User>? Users { get; set; } = new();
+
 }
 
 public class CompanyStat

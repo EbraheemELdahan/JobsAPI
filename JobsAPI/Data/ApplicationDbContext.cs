@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Company> Companies => Set<Company>();
     public DbSet<Job> Jobs => Set<Job>();
-    public DbSet<Application> Applications => Set<Application>();
+    public DbSet<JobsAPI.Models.Application> Applications => Set<JobsAPI.Models.Application>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,6 +29,13 @@ public class ApplicationDbContext : DbContext
             b.Property(u => u.Password).HasColumnName("password");
             b.Property(u => u.Role).HasColumnName("role");
             b.Property(u => u.Phone).HasColumnName("phone");
+            b.Property(u => u.CompanyId).HasColumnName("companyid");
+
+            // Relationship: User -> Company (many-to-one)
+            b.HasOne(u => u.Company)
+             .WithMany(c => c.Users)
+             .HasForeignKey(u => u.CompanyId)
+             .OnDelete(DeleteBehavior.SetNull);
         });
 
         modelBuilder.Entity<Company>(b =>
@@ -44,7 +51,6 @@ public class ApplicationDbContext : DbContext
             b.Property(c => c.Category).HasColumnName("category");
             b.Property(c => c.Jobs).HasColumnName("jobs");
             b.Property(c => c.Website).HasColumnName("website");
-            // Tags and Stats are complex types; use jsonb
             b.Property(c => c.Tags).HasColumnType("jsonb").HasColumnName("tags");
             b.Property(c => c.Stats).HasColumnType("jsonb").HasColumnName("stats");
         });
@@ -70,7 +76,7 @@ public class ApplicationDbContext : DbContext
             b.Property(j => j.Logo).HasColumnName("logo");
         });
 
-        modelBuilder.Entity<Application>(b =>
+        modelBuilder.Entity<JobsAPI.Models.Application>(b =>
         {
             b.ToTable("applications");
             b.HasKey(a => a.Id);
